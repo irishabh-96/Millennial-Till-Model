@@ -6,3 +6,11 @@ The repository includes site-specific implementations representing median study 
   3. Simulation results are exported as **StudyName.csv** files (example **POI.csv**), containing the full temporal variations of SOC pools and fluxes across the modeled period.
 
 Contact Rishabh Singh (irishabh1996@tamu.edu) for any model development-related questions.
+
+
+This folder contains jupyter notebook to compare the temporal dynamics of SOC pools and fluxes, soil moisture, and key hydrologic/hydraulic properties for each median site.
+
+How to use:
+
+Point the notebook to your model’s output CSV (e.g., AF.csv, POI.csv, etc.).
+Run the code. It will read the CSVs and generate the comparisons between CT and NT.
