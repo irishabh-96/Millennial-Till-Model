@@ -1,16 +1,23 @@
-This repository hosts the Millennial-Till model, which explicitly represents the impacts of conventional tillage (CT) and no-tillage (NT) on soil organic carbon (SOC) pools and dynamics.
+This repository hosts the **Millennial-Till** model, designed to explicitly capture the effects of conventional tillage (CT) and no-tillage (NT) on soil organic carbon (SOC) pools and dynamics.
 
-The repository includes site-specific implementations representing median study sites across diverse climatic conditions and crop productivity gradients. Each study is given a study name identified by a code — **POI, ZAN, PGL, BC, JIN, DOU, LOU, and AF**.
-  1. For each site, the main simulation code is provided in **Soil Carbon Model.py**, which integrates soil water balance processes with C cycling dynamics. This script also specifies the parameter values under different soil textures and climatic conditions.
-  2. Model runs are executed through the Jupyter notebook **Execution File.ipynb**.
-  3. Simulation results are exported as **StudyName.csv** files (example **POI.csv**), containing the full temporal variations of SOC pools and fluxes across the modeled period.
+Repository Structure
+
+**Studies**/
+Contains site-specific parameterizations for eight representative sites across climatic and crop productivity gradients: **POI, ZAN, PGL, BC, JIN, DOU, LOU, and AF**. Each site folder includes:
+
+**Soil Carbon Model.py** – Core simulation script integrating soil water balance processes with carbon cycling. Includes parameter sets for different soil textures and climatic conditions.
+
+**Execution File.ipynb** – Jupyter notebook used to run model simulations.
+
+**StudyName.csv** – Output file (e.g., POI.csv) containing temporal dynamics of SOC pools and fluxes for the modeled period.
+
+**Carbon Pools and Fluxes PDF.ipynb**
+Notebook visualizing time-series of aggregate carbon, particulate organic matter (POM), and microbial biomass (MB), along with fluxes such as POM aggregation (Fpa), aggregate breakdown (Fa), and microbial DOC uptake (Flb).
+
+**Comparison between CT and NT.ipynb**
+Notebook comparing SOC pool and flux responses during transitions from CT to NT.
+
+**Observed vs Simulated change in SOC and the impact on C pools.ipynb**
+Notebook evaluating observed vs simulated SOC changes (SOC_NT – SOC_CT) across all median sites, with a breakdown of contributions from individual carbon pools.
 
 Contact Rishabh Singh (irishabh1996@tamu.edu) for any model development-related questions.
-
-
-This folder contains jupyter notebook to compare the temporal dynamics of SOC pools and fluxes, soil moisture, and key hydrologic/hydraulic properties for each median site.
-
-How to use:
-
-Point the notebook to your model’s output CSV (e.g., AF.csv, POI.csv, etc.).
-Run the code. It will read the CSVs and generate the comparisons between CT and NT.
