@@ -743,7 +743,7 @@ def run_julia(rain, npp, kstex, kstot, phitex, phitot, alpha1, beta1, alpha2, be
     NPP_c = 0
     
     # Parameters  
-    # Litter Layer Parameters ----------------------------
+    # Surface Residue Parameters ----------------------------
     l = {'t1' : 15.4,
          't2' : 11.75,
          't3' : 29.7,
