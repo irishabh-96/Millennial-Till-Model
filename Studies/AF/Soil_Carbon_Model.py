@@ -328,6 +328,7 @@ def litter_f(t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp, pnpp, L, NPP, NPP_c, 
     TF : tillage flag
     klit : decomposition rate of surface litter
     pnpp : Part of NPP which goes into DOC and remaining goes to litter layer
+    TF : Tillage Flag
     """  
     
     stt = st(t1, t2, t3, t4, t, t_ref)
