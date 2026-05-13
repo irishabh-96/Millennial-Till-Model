@@ -195,7 +195,7 @@ def agg_form_POM(vpa, P, kpa, A, amax, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc,
 
 def POM_dec_DOC(vpl, P, kpl, kpe, B, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp):
     """
-    Computes decomposition of POM into LMWC
+    Computes depolymerization of POM into DOC
     Parameters
     ----------
         Vpl: maximum rate of POM decomposition
