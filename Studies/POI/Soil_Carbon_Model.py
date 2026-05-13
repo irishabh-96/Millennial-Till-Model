@@ -31,7 +31,6 @@ def poisson_process(n, lbd, alpha):
             rain[i] = 0
     return rain
 
-
 def canopy(rain, rstar):
     """
     Returns the amount of water intercepted by the vegetation canopy
@@ -44,7 +43,6 @@ def canopy(rain, rstar):
 
 def troughfall(rain, rstar):
     return rain - canopy(rain, rstar)
-
 
 def evapotranspiration(s, sh, sw, sstar, emax, ew):
     """
@@ -67,7 +65,6 @@ def evapotranspiration(s, sh, sw, sstar, emax, ew):
     else:
         et = emax
     return et
-
 
 def leakage_carbon(s, sh, phitex, phi, kstex, m_prime, ksstr, m):
     """
@@ -93,7 +90,6 @@ def leakage_carbon(s, sh, phitex, phi, kstex, m_prime, ksstr, m):
         y = kstex + ksstr * ((se ** 0.5) * (1 - (1 - se ** (1 / m)) ** m) ** 2)
         pass
     return y
-
 
 def swb_f(s, rain, npp, sh, sw, sstar, emax, ew, phi, zr, rstar, phitex, kstex, m_prime, ksstr, m, dt):
     """
@@ -127,7 +123,6 @@ def swb_f(s, rain, npp, sh, sw, sstar, emax, ew, phi, zr, rstar, phitex, kstex, 
     output = {'Rain': rain, 'CI': ci, 'Q': q, 's': s, 'ET': et, 'Lk': lk, 'npp_': npp_}
     return output
 
-
 # Millennial model -------------------------------------------------------------
 
 def st(t1, t2, t3, t4, t, t_ref):
@@ -146,8 +141,6 @@ def st(t1, t2, t3, t4, t, t_ref):
         (t2 + (t3 / 3.14) * np.arctan(3.14 * t4 * (t_ref - t1)))
     return stt
 
-
-
 def sw (w1,w2,s,sfc,sp):
     """
     Computes moisture scalar of daily time-step version of Century model
@@ -159,7 +152,6 @@ def sw (w1,w2,s,sfc,sp):
     
     sww = 1/(1 + w1 * np.exp(-w2*(s-sp)/(sfc-sp)))
     return sww
-
 
 def agg_break_POM(kb, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp, A):
     """
@@ -176,7 +168,6 @@ def agg_break_POM(kb, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp, A):
     
     Fa = kb * stt * sww * A
     return Fa
-
 
 def agg_form_POM(vpa, P, kpa, A, amax, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp):
     """
@@ -197,10 +188,9 @@ def agg_form_POM(vpa, P, kpa, A, amax, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc,
     Fpa = vpa* stt * sww * (P / (P+kpa)) * (1 - (A / amax))
     return Fpa
 
-
 def POM_dec_DOC(vpl, P, kpl, kpe, B, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp):
     """
-    Computes decomposition of POM into LMWC
+    Computes depolymerization of POM into DOC
     Parameters
     ----------
         Vpl: maximum rate of POM decomposition
@@ -217,7 +207,6 @@ def POM_dec_DOC(vpl, P, kpl, kpe, B, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, s
     
     Fpl = vpl * stt * sww * (P / (kpl + P)) * (B / (kpe + B))
     return Fpl
-
 
 def A_dec_DOC(val, A, kal, kae, B, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp):
     """
@@ -238,8 +227,6 @@ def A_dec_DOC(val, A, kal, kae, B, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp)
     
     Fal = val * stt * sww * ((A*0.001) / (kal + (A*0.001))) * (B / (kae + B))
     return Fal
-
-
 
 def DOC_leaching(s, DOC, lk, phi, zr):
     """
@@ -296,10 +283,8 @@ def DOC_biomass(s, vlm, t1, t2, t3, t4, t, t_ref, a_star, ms_star, ns_star, mg_s
         mg_star : cementation exponent for oxygen
         ng_star : saturation exponent for oxygen
         KDOC : half-saturation constant for DOC
-        KO :   half-saturation constant for oxygen
-        
-    """
-    
+        KO :   half-saturation constant for oxygen        
+    """    
     stt = st(t1, t2, t3, t4, t, t_ref)
 
     Flb = vlm * stt * B * (DOC * phi ** (a_star * (ms_star - ns_star)) * (s * phi) ** (a_star * ns_star)) / (
@@ -307,8 +292,6 @@ def DOC_biomass(s, vlm, t1, t2, t3, t4, t, t_ref, a_star, ms_star, ns_star, mg_s
         (0.209 * (phi - s * phi) ** (4 / 3) * phi ** (mg_star - ng_star) * (s * phi - phi) ** ng_star) / (
             0.209 * (phi - s * phi) ** (4 / 3) * phi ** (mg_star - ng_star) * (s * phi - phi) ** ng_star + KO))    
     return Flb
-
-
 
 def bio_MAOM(kmm, t1, t2, t3, t4, t, t_ref, B):
     """
@@ -319,7 +302,6 @@ def bio_MAOM(kmm, t1, t2, t3, t4, t, t_ref, B):
         st : temperature scalar taken from daily version of Century model
         B  : microbial biomass
     """
-    
     stt = st(t1, t2, t3, t4, t, t_ref)
     
     Fbm = (kmm * stt * B)
@@ -327,13 +309,14 @@ def bio_MAOM(kmm, t1, t2, t3, t4, t, t_ref, B):
 
 def litter_f(t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp, pnpp, L, NPP, NPP_c, klit, p_dec, TF, dt):
     """
-    Simulates litter pool dynamics
+    Simulates surface residue dynamics
     Parameters:
     L : current litter C
     NPP : net primary productivity
     TF : tillage flag
     klit : decomposition rate of surface litter
     pnpp : Part of NPP which goes into DOC and remaining goes to litter layer
+    TF : Tillage Flag
     """  
     
     stt = st(t1, t2, t3, t4, t, t_ref)
@@ -342,35 +325,27 @@ def litter_f(t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp, pnpp, L, NPP, NPP_c, 
     decomp = sww * stt * klit * L
     
     HI = 0.45     
-    NPP_c = ((1-pnpp)*NPP)*dt + NPP_c                   # since, part of NPP goes to DOC, the remaining part (1-pnpp)*NPP will go for                                                                  accumulation
-    if TF == 2:
-        #Fi = p_dec * decomp                            # flux going after decomposition of litter pool into POM and DOC 
-        L = L - (decomp * dt)                           # litter pool getting updated since there is no new addition of NPP. 
-        Fi = p_dec * decomp                             # flux going after decomposition of litter pool into POM and DOC         
-        Flpom = 0                                       # no carbon going directly from litter to POM
+    NPP_c = ((1-pnpp)*NPP)*dt + NPP_c                # since, part of NPP goes to DOC, the remaining part (1-pnpp)*NPP will go for                                                                                     accumulation
+    if TF == 0 or TF == 2 or TF == 4:
+        L = L - decomp*dt                            # litter pool getting updated since there is no new addition of NPP.
+        Fi = p_dec * decomp                          # flux going after decomposition of litter pool into POM and DOC
+        Flpom = 0                                    # no carbon going directly from litter to POM
         
-        return Fi, L, NPP_c, Flpom, decomp
+    elif TF == 1:                                    # harvest during tillage window. Remaining residue after harvest gets added to surface residue
+        L = L + ((1-HI) * NPP_c) - decomp*dt         # accumulated NPP fed in the surface residue
+        Fi = p_dec * decomp                          # flux going after decomposition of litter pool into POM and DOC
+        Flpom = 0.5 * L                              # C going from litter to the POM pool directly
+        L = L - Flpom                               # updating the litter pool based on what fraction goes to POM 
+        NPP_c = 0                                    # all the accumulated NPP is in the litter, hence setting it back to 0 for next year  
     
-    elif TF == 0:                                       # no-tillage conditions, harvest at the end of the year  
-        #Fi = p_dec * decomp                            # flux going after decomposition of litter pool into POM and DOC
-        L = L + (HI * NPP_c) - decomp*dt                # accumulated NPP fed in the litter pool
-        Fi = p_dec * decomp                             # flux going after decomposition of litter pool into POM and DOC
-        NPP_c = 0                                       # all the accumulated NPP is in the litter, hence setting it back to 0 for next year
-        Flpom = 0                                       # no carbon going from litter to the POM pool directly
-        
-        return Fi, L, NPP_c, Flpom, decomp
-    
-    else:                                               # harvest at the end of the year and doing tillage as well     
-        #Fi = (p_dec * decomp)                          # flux going after decomposition of litter pool into POM and DOC
-        L = L + (HI * NPP_c) - decomp*dt                # residue after the crop is harvested is incorporated into the litter pool
-        Fi = (p_dec * decomp)                           # flux going after decomposition of litter pool into POM and DOC
-        Flpom = 0.5*L                                       # the transfer of carbon from litter pool to the POM pool directly due to                                                                     tillage inversion
-        L = L - Flpom                                   # setting the litter pool back to 0, since there is nothing left on the surface now
-        NPP_c = 0                                       # similarly, accumulated NPP is set back to 0
-        
-        return Fi, L, NPP_c, Flpom, decomp  
-    
-    output = {'Fi':Fi, 'L':L, 'NPP_C' : NPP_c, 'Flpom' : Flpom, 'decomp' : decomp}
+    elif TF == 3:                                    # no-tillage window, harvest at the end of the year  
+        L = L + ((1-HI) * NPP_c) - decomp*dt         # accumulated NPP fed in the surface residue
+        Fi = p_dec * decomp                          # flux going after decomposition of litter pool into POM and DOC
+        NPP_c = 0                                    # all the accumulated NPP is in the residue, hence setting it back to 0 for next year
+        Flpom = 0                                    # no carbon going from litter to the POM pool directly                                 
+          
+    output = {'Fi':Fi, 'L':L, 'NPP_c' : NPP_c, 'Flpom' : Flpom, 'decomp' : decomp}
+    return output
 
 def pom_f(pi, kb, t1, t2, t3, t4, t, t_ref, s, A, vpa, P, kpa, amax, vpl, kpl, kpe, B, w1, w2, sfc, sp, TF, TI, Fi, L, NPP_c, Flpom, dt):  
     """
@@ -381,22 +356,22 @@ def pom_f(pi, kb, t1, t2, t3, t4, t, t_ref, s, A, vpa, P, kpa, amax, vpl, kpl, k
          Fa : aggregate carbon formation from POM
          Fpa : aggregate carbon formation from POM
          Fpl : decomposition of POM into DOC
+         TI : Tillage Intensity
     """
 
     Fa = agg_break_POM(kb, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp, A)
     Fpa = agg_form_POM(vpa, P, kpa, A, amax, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp)
     Fpl = POM_dec_DOC(vpl, P, kpl, kpe, B, t1, t2, t3, t4, t, t_ref, s, w1, w2, sfc, sp)
     
-    if TF == 1:                                                            # tillage condition
+    if TF == 1:                                                            
         TI_Calculated = TI
         P = ((pi * Fi) + Fa - Fpa - Fpl) * dt + P + ((TI_Calculated * A)) + Flpom
         
-    else:                                                                  # no-tillage condition
+    else:                                                       
         P = ((pi * Fi) + Fa - Fpa - Fpl) * dt + P
               
-    output = {'Fa': Fa, 'Fpa': Fpa, 'Fpl': Fpl,'P': P}       #, 'Fi': Fi, 'L': L, 'NPP_c' : NPP_c, 'Flpom' : Flpom}
+    output = {'Fa': Fa, 'Fpa': Fpa, 'Fpl': Fpl,'P': P}    
     return output
-
 
 def doc_f(vpl, vlm, P, kpl, kpe, A, DOC, klm, M, Qmax, B, a_star, ms_star, ns_star, mg_star, ng_star, KDOC, KO, phi, pi, s, t1, t2, t3, t4, t, t_ref, lk, zr, dt, kmm, pnpp, w1, w2, sfc, sp, val, kal, kae, Fi, L, NPP, TF):
     """
@@ -430,6 +405,7 @@ def agg_f(M, A, amax, s, vpa, P, kpa, kb, t1, t2, t3, t4, t, t_ref, w1, w2, sfc,
          Fpa : decomposition of POM into DOC
          Fa : adsorption of DOC to MAOM
          Fal : uptake of DOC by microbial biomass
+         TI : Tillage Intensity
     """
     
     Fpa = agg_form_POM(vpa, P, kpa, A, amax, t1, t2, t3, t4, t, t_ref, s,w1, w2, sfc, sp)
@@ -446,7 +422,6 @@ def agg_f(M, A, amax, s, vpa, P, kpa, kb, t1, t2, t3, t4, t, t_ref, w1, w2, sfc,
     output = {'Fpa': Fpa, 'Fa': Fa, 'Fal': Fal, 'A': A}
     return output
 
-
 def maom_f(klm, DOC, M, Qmax, s, t1, t2, t3, t4, t, t_ref, B,A, w1, w2, sfc, sp, dt):  
     """
     Computes change in MAOM with time
@@ -459,7 +434,6 @@ def maom_f(klm, DOC, M, Qmax, s, t1, t2, t3, t4, t, t_ref, B,A, w1, w2, sfc, sp,
     output = {'Flm': Flm, 'Fld': Fld, 'M': M}
     return output
 
-
 def bio_f(DOC, vlm, B, a_star, ms_star, ns_star, mg_star, ng_star, KDOC, KO, kmm, t1, t2, t3, t4, t, t_ref, s, phi, CUE, dt): 
     """
     Computes change in B with time
@@ -467,14 +441,12 @@ def bio_f(DOC, vlm, B, a_star, ms_star, ns_star, mg_star, ng_star, KDOC, KO, kmm
          Flb : adsorption of DOC to MAOM
          Fbm : carbon flow from microbial biomass to MAOM
     """
-
     Flb = DOC_biomass(s, vlm, t1, t2, t3, t4, t, t_ref, a_star, ms_star, ns_star, mg_star, ng_star, DOC, KDOC, KO, phi, B)
     Fbm = bio_MAOM(kmm, t1, t2, t3, t4, t, t_ref, B)
 
     B = (CUE*Flb - Fbm) * dt + B
     output = {'Flb': Flb, 'Fbm': Fbm, 'B': B}
     return output
-
 
 def ksstr(kstex, kstot, A, alpha, beta):
     """
@@ -486,11 +458,9 @@ def ksstr(kstex, kstot, A, alpha, beta):
     A : aggregated carbon
     alpha : shape parameter
     beta : shape parameter
-
     """
     y = kstot - ((kstot - kstex) / (1 + (A / alpha) ** beta)) - kstex
     return y
-
 
 def phistr(phitot, phitex, A, alpha, beta):
     """
@@ -502,11 +472,9 @@ def phistr(phitot, phitex, A, alpha, beta):
     A : aggregated carbon
     alpha : shape parameter
     beta : shape parameter
-
     """
     y = phitot - ((phitot - phitex) / (1 + (A / alpha) ** beta)) - phitex
     return y
-
 
 def kstot(sand, kstex):
     """
@@ -518,11 +486,9 @@ def kstot(sand, kstex):
 
     Returns
     -------
-
     """
     y = 10 ** (3.5 - 1.5 * sand ** 0.13) * kstex
     return y
-
 
 def phitot(sand, phitex):
     """
@@ -534,11 +500,9 @@ def phitot(sand, phitex):
 
     Returns
     -------
-
 #     """
     y = phitex / (10 ** (3.5 - 1.5 * sand ** 0.13))
     return y
-
 
 # ----------------------------------------------------------------------------
 # Soil water balance coupled with Millennial
@@ -579,7 +543,13 @@ def swb_millennial(s, rain, npp, P0, A0, B0, M0, DOC0, L0, NPP_c, alpha1, beta1,
     NPP = sol_swb['npp_']
 
     # Millennial model equations
-    Fi, L_new, NPP_c_new, Flpom, decomp = litter_f(s=sr, L=L0, NPP=NPP, NPP_c=NPP_c, TF=TF0, **l, dt=dt)
+    lit = litter_f(s=sr, L=L0, NPP=NPP, NPP_c=NPP_c, TF=TF0, **l, dt=dt)
+    Fi = lit['Fi']
+    L_new = lit['L']
+    NPP_c_new = lit['NPP_c']
+    Flpom = lit['Flpom']
+    decomp = lit['decomp']
+        
     pom = pom_f(s=sr, P=P0, A=A0, B=B0, dt=dt, TF = TF0, TI=TI, Fi=Fi, L=L_new, NPP_c=NPP_c_new, Flpom=Flpom, **w)
     doc = doc_f(s=sr, P=P0, M=M0, B=B0, DOC=DOC0, A=A0, lk=lk, Fi=Fi, L=L_new, NPP = NPP, dt=dt, zr=zr, phi=phi, TF=TF0, **u)
     agg = agg_f(s=sr, M=M0, P=P0, A=A0, B=B0, dt=dt, TF=TF0, TI=TI, **v)
@@ -651,28 +621,23 @@ def long_run(s, rain, npp, P0, A0, B0, M0, DOC0, L0, NPP_c, alpha1, beta1, alpha
     Flm_out = np.zeros(nr)
     lk_out = np.zeros(nr)
     
-    # for i in range(nr):
-    """        
-        if i in range(0, 2190000, 8760):        # from 0 to 250 years, tillage
-            TF0 = 1
-        elif i in range(2190001,3942000,8760):  # from 250 to 450 years, no-tillage, but harvesting
-            TF0 = 0 
-        else:                                   # from 0 to 450 years, no-tillage, no harvest, npp accumulation
-            TF0 = 2
-    """
     for i in tqdm.tqdm(range(nr)):
-        if i % 8760 == 0 and i != 0:
+        if i <= 7008000:            # tillage duration 0-7008000 hours (0-800 years)
+            if i < 8760:
+                TF0 = 0             # first 8759 hours at the beginning of the simulation
+                
+            elif i % 8760 == 0:
+                TF0 = 1             # tillage activity at the last time step of each year
             
-            if i <= 13140000:
-                TF0 = 1               # tillage + harvest
+            else:                   # remaining time steps without tillage
+                TF0 = 2
             
-            elif i <= 17520000:
-                TF0 = 0               # no-tillage + harvest
-            else:
-                TF0 = 2               # post-treatment, just accumulation
-                    
-        else:
-            TF0 = 2                   # accumulate during rest of year
+        else:                       # period of no-tillage (800-1000 years)
+            if i % 8760 == 0:       # harvest operation at the end of each year during no-till period
+                TF0 = 3
+                
+            else:                   # hours without harvest during no-till period
+                TF0 = 4 
         
         y = swb_millennial(s, rain[i], npp[i], P0, A0, B0, M0, DOC0, L0, NPP_c, alpha1, beta1, alpha2, beta2, soilp, w, u, v, h, c, l, TF0, TI, dt)
         
@@ -768,7 +733,7 @@ def run_julia(rain, npp, kstex, kstot, phitex, phitot, alpha1, beta1, alpha2, be
     NPP_c = 0
     
     # Parameters  
-    # Litter Layer Parameters ----------------------------
+    # Surface Residue Parameters ----------------------------
     l = {'t1' : 15.4,
          't2' : 11.75,
          't3' : 29.7,
@@ -777,7 +742,7 @@ def run_julia(rain, npp, kstex, kstot, phitex, phitot, alpha1, beta1, alpha2, be
          't' : 6.3,
          'w1': 30,
          'w2': 9,
-         'sfc': 0.65,
+         'sfc': 0.80,
          'sp': 0.032,
          'klit' : 0.01,
          'p_dec' : 0.40,
@@ -794,7 +759,7 @@ def run_julia(rain, npp, kstex, kstot, phitex, phitot, alpha1, beta1, alpha2, be
          't' : 6.3,
          'w1': 30,
          'w2': 9,
-         'sfc': 0.65,
+         'sfc': 0.80,
          'sp': 0.032,
          'vpa': 10,
          'kpa': 50,
@@ -812,7 +777,7 @@ def run_julia(rain, npp, kstex, kstot, phitex, phitot, alpha1, beta1, alpha2, be
          'kal': 200,
          'kae': 24,
          'klm': 0.2,
-         'Qmax': 3602.4,
+         'Qmax': 3648,
          'a_star': 0.794,
          'ms_star': 1.5,
          'ns_star': 2,
@@ -829,7 +794,7 @@ def run_julia(rain, npp, kstex, kstot, phitex, phitot, alpha1, beta1, alpha2, be
          't' : 6.3,
          'w1': 30,
          'w2': 9,
-         'sfc': 0.65,
+         'sfc': 0.80,
          'kmm': 0.01,
          'sp': 0.032,
          'pnpp': 0.2}
@@ -850,12 +815,12 @@ def run_julia(rain, npp, kstex, kstot, phitex, phitot, alpha1, beta1, alpha2, be
          't' : 6.3,
          'w1': 30,
          'w2': 9,
-         'sfc': 0.65,
+         'sfc': 0.80,
          'sp': 0.032}
 
     # MAOM parameters -------------------------------------
     h = {'klm': 0.2,
-         'Qmax': 3602.4,
+         'Qmax': 3648,
          't1' : 15.4,
          't2' : 11.75,
          't3' : 29.7,
@@ -864,7 +829,7 @@ def run_julia(rain, npp, kstex, kstot, phitex, phitot, alpha1, beta1, alpha2, be
          't' : 6.3,
          'w1': 30,
          'w2': 9,
-         'sfc': 0.65,
+         'sfc': 0.80,
          'sp': 0.032}
 
     # BIO parameters -----------------------------------
@@ -886,9 +851,9 @@ def run_julia(rain, npp, kstex, kstot, phitex, phitot, alpha1, beta1, alpha2, be
          'kmm': 0.01}
 
     # Water balance model -------------------------------
-    soilp = {'sh': 0.19,
-             'sw': 0.24,
-             'sstar': 0.57,
+    soilp = {'sh': 0.36,
+             'sw': 0.42,
+             'sstar': 0.76,
              'emax': 0.19/100,
              'ew': 0.019/100,
              'zr': 20/100,
