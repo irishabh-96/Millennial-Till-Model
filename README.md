@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/1052224089.svg)](https://doi.org/10.5281/zenodo.20207401)
+
 This repository hosts the **Millennial-Till** model, designed to explicitly capture the effects of conventional tillage (CT) and no-tillage (NT) on soil organic carbon (SOC) pools and dynamics.
 
 Repository Structure
