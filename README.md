@@ -1,25 +1,50 @@
 [![DOI](https://zenodo.org/badge/1052224089.svg)](https://doi.org/10.5281/zenodo.20207401)
 
-This repository hosts the **Millennial-Till** model, designed to explicitly capture the effects of conventional tillage (CT) and no-tillage (NT) on soil organic carbon (SOC) pools and dynamics.
+This repository hosts the **Millennial-Till** model, designed to explicitly capture the effects of conventional tillage (CT) and no-tillage (NT) on soil organic carbon (SOC) pools and dynamics. The model integrates soil carbon cycling with soil water balance processes to simulate SOC dynamics under different climatic conditions, soil properties, and crop productivity levels.
 
 Repository Structure
 
-**Studies**/
-Contains site-specific parameterizations for eight representative sites across climatic and crop productivity gradients: **POI, ZAN, PGL, BC, JIN, DOU, LOU, and AF**. Each site folder includes:
+1. Millennial-Till/
 
-**Soil Carbon Model.py** – Core simulation script integrating soil water balance processes with carbon cycling. Includes parameter sets for different soil textures and climatic conditions.
+Contains the Millennial-Till model implementation for eight representative sites across climatic and crop productivity gradients: POI, ZAN, PGL, BC, JIN, DOU, LOU, and AF. 
+Soil_Carbon_Model.py – Model script containing soil carbon cycling equations, soil water balance processes, and their interactions.
+Execute_All_Sites.py – Defines site-specific inputs, calibrated parameters, and simulation settings for all eight representative sites.
+Execution File.ipynb – Jupyter notebook used to execute the unified model simulations.
 
-**Execution File.ipynb** – Jupyter notebook used to run model simulations.
+2. CENTURY/
 
-**StudyName.csv** – Output file (e.g., POI.csv) containing temporal dynamics of SOC pools and fluxes for the modeled period.
+Contains the CENTURY model implementation used in EPIC to evaluate SOC dynamics across the same eight representative sites.
+Century_APEX.py – Implements the CENTURY soil carbon model, including active, slow, and passive SOC pools, litter decomposition, soil water balance, and tillage-related processes.
+Execution File.ipynb – Jupyter notebook used to execute CENTURY model simulations.
 
-**Carbon Pools and Fluxes PDF.ipynb**
-Notebook visualizing time-series of aggregate carbon, particulate organic matter (POM), and microbial biomass (MB), along with fluxes such as POM aggregation (Fpa), aggregate breakdown (Fa), and microbial DOC uptake (Flb).
+3. Sensitivity-Analysis/
 
-**Comparison between CT and NT.ipynb**
-Notebook comparing SOC pool and flux responses during transitions from CT to NT.
+Contains the Millennial-Till sensitivity analysis framework used to examine how changes in climatic conditions, net primary productivity (NPP), and soil properties influence simulated SOC dynamics. 
 
-**Observed vs Simulated change in SOC and the impact on C pools.ipynb**
-Notebook evaluating observed vs simulated SOC changes (SOC_NT – SOC_CT) across all median sites, with a breakdown of contributions from individual carbon pools.
+Soil_Carbon_Model.py – Contains the coupled soil carbon and water balance equations used in the sensitivity simulations.
+Execute_All_Sites.py – Defines site-specific parameters and executes sensitivity analysis scenarios across the eight representative sites.
+Execution File.ipynb – Jupyter notebook used to execute sensitivity simulations.
 
-Contact Rishabh Singh (irishabh1996@tamu.edu) for any model development-related questions.
+4. Carbon-Tracking-and-Half-Life/
+
+Contains the framework for tracking the fate of carbon entering the soil under CT and NT practices by estimating carbon retention and half-life.
+
+Model.py – Contains the model equations used for carbon tracking simulations.
+Execution_Source.ipynb – Executes simulations used to establish the initial model conditions for carbon tracking.
+Carbon tracking and Half-life.ipynb – Analyzes the redistribution and retention of newly introduced carbon across SOC pools and its losses through respiration and leaching.
+sites.json – Stores site-specific parameters used in the simulations.
+End_States/ – Contains saved model states used to initialize carbon tracking simulations.
+Results_SourceFlux/ – Contains simulation outputs from the carbon tracking analysis.
+
+5. Analysis and Visualization Notebooks
+
+Carbon Pools and fluxes PDF.ipynb – Visualizes temporal changes in aggregate carbon (AAC), particulate organic carbon (POC), microbial biomass carbon (MBC) under CT and NT practices.
+Observed vs Simulated change in SOC (Millennial-Till).ipynb – Evaluates observed and simulated changes in SOC (SOC_NT − SOC_CT) across the eight representative sites.
+Porosity, Saturated Hydraulic Conductivity - Millennial Till.ipynb – Analyzes simulated soil porosity and saturated hydraulic conductivity (Ksat) within the Millennial-Till framework.
+
+6. Contact
+
+For questions related to model development, implementation, or simulations, contact:
+
+Rishabh Singh
+irishabh1996@tamu.edu
